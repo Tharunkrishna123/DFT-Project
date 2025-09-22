@@ -1,1 +1,69 @@
+# 🧪 Scan Insertion – Design for Testability (DFT)
+
+## 📌 Overview
+**Scan Insertion** is a key step in **Design for Testability (DFT)**.  
+It modifies a digital circuit’s flip-flops into **scan flip-flops (SFFs)** and stitches them together into **scan chains**, enabling easy controllability and observability of internal states during manufacturing test.
+
+This process makes the circuit behave like a **pseudo-combinational design** during test mode, allowing **Automatic Test Pattern Generation (ATPG)** tools to achieve high fault coverage.
+
+---
+
+## ⚡ Why Scan Insertion?
+- Sequential circuits are hard to test since internal states depend on prior inputs.
+- Normal flip-flops have poor **observability** and **controllability**.
+- Scan insertion solves this by:
+  - Breaking sequential depth.
+  - Allowing test vectors to be shifted in/out.
+  - Enabling high fault coverage (stuck-at, transition, etc.).
+
+---
+
+## 🔧 How It Works
+1. **Scan Flip-Flop (SFF):**
+   - A normal FF is replaced with a scan-enabled FF.
+   - Input multiplexer chooses between:
+     - Functional input (**D**) – normal mode.
+     - Scan input (**SI**) – test mode.
+
+2. **Scan Enable (SE):**
+   - Control signal for switching between functional and test mode.
+   - `SE = 0 → Normal operation`
+   - `SE = 1 → Scan shift mode`
+
+3. **Scan Chain:**
+   - All scan FFs are connected serially (Q → SI of next FF).
+   - Multiple chains are used in large designs to reduce test time.
+
+4. **Test Flow:**
+   - **Shift-In:** Load test vectors through scan chain.
+   - **Capture:** Apply one or more functional clocks to capture response.
+   - **Shift-Out:** Read out captured response for comparison.
+
+---
+
+## 📂 Typical DFT Flow
+1. **Identify** flip-flops for scan.
+2. **Replace** them with scan-enabled FFs from library.
+3. **Stitch** scan chains (balance lengths if multiple).
+4. **Verify** scan functionality (simulation).
+5. **Generate** ATPG test patterns.
+
+---
+
+## 📊 Key Metrics
+- **Scan Coverage:** % of FFs converted to scan FFs.
+- **Fault Coverage:** % of faults detected by ATPG patterns.
+- **Test Time:** Depends on scan chain length and number.
+- **Overheads:** Slight area, timing, and power increase.
+
+---
+
+## ✅ Summary
+- Scan insertion is essential for making designs testable.  
+- It provides **controllability** and **observability** by converting FFs into scan FFs.  
+- With ATPG, it achieves **high fault coverage** in manufacturing test.  
+
+---
+
+---
 
